@@ -8,6 +8,9 @@ import SignUpPage from "./pages/signuppage";
 import Homepage from "./pages/homepage";
 import IsPrivate from "./components/isprivate";
 import IsAnon from "./components/isanon";
+import Profilepage from "./pages/profilepage";
+import SubmitProjectPage from "./pages/submitprojectpage";
+import ProjectDetailsPage from "./pages/projectdetailspage";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -15,41 +18,40 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route
-          path="/login"
-          element={
-            <IsAnon>
-              <LoginPage />
-            </IsAnon>
-          }
-        />
-        <Route
-          path="/signup"
-          element={
-            <IsAnon>
-              <SignUpPage />
-            </IsAnon>
-          }
-        />
-        <Route
-          path="/projects"
-          element={
-            <IsPrivate>
-              {/* <Projectpage /> */}
-            </IsPrivate>
-          }
-        />
-        <Route
-          path="/projects/:projectId"
-          element={
-            <IsPrivate>
-              {/* <ProjectDetailsPage /> */}
-            </IsPrivate>
-          }
-        />
-      </Routes>
+      <div className="mainscreen">
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route
+            path="/login"
+            element={
+              <IsAnon>
+                <LoginPage />
+              </IsAnon>
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <IsAnon>
+                <SignUpPage />
+              </IsAnon>
+            }
+          />
+          <Route path="/projects/:projectId" element={<ProjectDetailsPage />} />
+          <Route
+            path="/profile"
+            element={<IsPrivate>{<Profilepage />}</IsPrivate>}
+          />
+          <Route
+            path="/submitproject"
+            element={
+              <IsPrivate>
+                <SubmitProjectPage />
+              </IsPrivate>
+            }
+          />
+        </Routes>
+      </div>
     </div>
   );
 }
