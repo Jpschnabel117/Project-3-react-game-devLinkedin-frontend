@@ -13,12 +13,12 @@ function ProjectDetailsPage() {
   const { user, isLoggedIn, logOutUser } = useContext(AuthContext);
   const [project, setProject] = useState(null);
   const [showEdit, setShowEdit] = useState(false);
-  const [showTask, setShowTask] = useState(false);
+ // const [showTask, setShowTask] = useState(false);
 
   const getProjectDetails = () => {
     axios
       .get(`http://localhost:3001/api/projects/${projectId}`, {})
-      
+
       .then((axiosResponse) => {
         console.log("Details response:", axiosResponse.data);
         setProject(axiosResponse.data);
@@ -51,10 +51,59 @@ function ProjectDetailsPage() {
         <div>
           <img src="/public/vite.svg" alt="" />
           <h3>{project.title}</h3>
-          <Link to={`/profile/${project.owner._id}`}></Link>
-          <h4>created by: {project.owner.displayName}</h4>
+          <Link to={`/profile/${project.owner._id}`}>
+            <h4>created by: {project.owner.displayName}</h4>
+          </Link>
+
           <h4>{project.description.short}</h4>
           <p>{project.description.long}</p>
+
+          <div className="userSkills">
+            <div>
+              <span>Engines:</span>
+              <div>
+                {project.tech.engines.map((element) => {
+                  return <div className="skill-tag">{element}</div>;
+                })}
+              </div>
+              <br />
+            </div>
+            <div>
+              <span>Languages:</span>
+              <div>
+                {" "}
+                {project.tech.languages.map((element) => {
+                  return <div className="skill-tag">{element}</div>;
+                })}
+              </div>
+              <br />
+            </div>
+            <div>
+              <span>Socials: </span>
+              <div>
+                {project.links.github !== "" && (
+                  <div className="social-link">
+                    Github: {project.links.github}
+                  </div>
+                )}
+                {project.links.patreon !== "" && (
+                  <div className="social-link">
+                    Patreon: {project.links.patreon}
+                  </div>
+                )}
+                {project.links.steam !== "" && (
+                  <div className="social-link">
+                    Steam: {project.links.steam}
+                  </div>
+                )}
+                {project.links.discord !== "" && (
+                  <div className="social-link">
+                    Discord: {project.links.discord}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
 
           {isLoggedIn && (
             <>
@@ -94,7 +143,8 @@ function ProjectDetailsPage() {
             {project.comments.map((singleComment) => {
               return (
                 <div className="comment">
-                  {singleComment.comment} {singleComment.owner.displayName}
+                  <div>{singleComment.owner.displayName}</div>
+                  <div>{singleComment.comment}</div>
                 </div>
               );
             })}

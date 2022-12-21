@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import EditUserPage from "./edituserpage";
 
 const Profilepage = () => {
   const { userId } = useParams();
@@ -26,20 +27,6 @@ const Profilepage = () => {
     getUserDetails();
   }, []);
 
-  const deleteIt = () => {
-    axios
-      .delete(`http://localhost:3001/api/user/${userId}`, {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("authToken")}`,
-        },
-      })
-      .then((axiosResponse) => {
-        console.log(axiosResponse.data);
-        navigate("/");
-      })
-      .catch((err) => console.log(err));
-  };
-
   return (
     <div className="ProjectDetails">
       <h1></h1>
@@ -49,6 +36,52 @@ const Profilepage = () => {
           <h3>{viewingUser.displayName}</h3>
           <h4>{viewingUser.description.short}</h4>
           <p>{viewingUser.description.long}</p>
+          <div className="userSkills">
+            <div>
+              <span>Engines:</span>
+              <div>
+                {viewingUser.tech.engines.map((element) => {
+                  return <div className="skill-tag">{element}</div>;
+                })}
+              </div>
+              <br />
+            </div>
+            <div>
+              <span>Languages:</span>
+              <div>
+                {" "}
+                {viewingUser.tech.languages.map((element) => {
+                  return <div className="skill-tag">{element}</div>;
+                })}
+              </div>
+              <br />
+            </div>
+            <div>
+              <span>Socials: </span>
+              <div>
+                {viewingUser.links.github !== "" && (
+                  <div className="social-link">
+                    Github: {viewingUser.links.github}
+                  </div>
+                )}
+                {viewingUser.links.patreon !== "" && (
+                  <div className="social-link">
+                    Patreon: {viewingUser.links.patreon}
+                  </div>
+                )}
+                {viewingUser.links.steam !== "" && (
+                  <div className="social-link">
+                    Steam: {viewingUser.links.steam}
+                  </div>
+                )}
+                {viewingUser.links.discord !== "" && (
+                  <div className="social-link">
+                    Discord: {viewingUser.links.discord}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
 
           {isLoggedIn && (
             <>
@@ -59,18 +92,19 @@ const Profilepage = () => {
                       <button onClick={() => setShowEdit(false)}>
                         Hide Editing
                       </button>
-                      <EditProjectPage
-                        title={project.title}
-                        descriptionShort={project.description.short}
-                        descriptionLong={project.description.long}
-                        techEngines={project.tech.engines}
-                        techLanguages={project.tech.languages}
-                        linksGithub={project.links.github}
-                        linksSteam={project.links.steam}
-                        linksPatreon={project.links.patreon}
-                        linksDiscord={project.links.discord}
-                        hiring={project.hiring}
-                        id={project._id}
+                      <EditUserPage
+                        email={viewingUser.email}
+                        displayName={viewingUser.displayName}
+                        descriptionShort={viewingUser.description.short}
+                        descriptionLong={viewingUser.description.long}
+                        techEngines={viewingUser.tech.engines}
+                        techLanguages={viewingUser.tech.languages}
+                        linksGithub={viewingUser.links.github}
+                        linksSteam={viewingUser.links.steam}
+                        linksPatreon={viewingUser.links.patreon}
+                        linksDiscord={viewingUser.links.discord}
+                        lookingForJob={viewingUser.lookingForJob}
+                        id={viewingUser._id}
                       />
                     </>
                   ) : (
@@ -82,17 +116,6 @@ const Profilepage = () => {
               )}
             </>
           )}
-
-          <NewComment getProjectDetails={getProjectDetails} />
-          <div className="comment-section">
-            {project.comments.map((singleComment) => {
-              return (
-                <div className="comment">
-                  {singleComment.comment} {singleComment.owner.displayName}
-                </div>
-              );
-            })}
-          </div>
         </div>
       ) : (
         <p>...Loading</p>

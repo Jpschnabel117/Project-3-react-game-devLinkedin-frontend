@@ -17,6 +17,7 @@ function NewComment(props) {
         `http://localhost:3001/api/projects/${projectId}/comment`,
         {
           comment: comment,
+          project: projectId,
         },
         {
           headers: {
@@ -38,8 +39,15 @@ function NewComment(props) {
   return (
     <div>
       <h3>Add Comment</h3>
-      <form style={{display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }} onSubmit={handleSubmit}>
-        
+      <form
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+        onSubmit={handleSubmit}
+      >
         <textarea
           className="commentinput"
           name="comment"

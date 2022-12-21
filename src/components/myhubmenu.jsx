@@ -9,7 +9,7 @@ function MyHubMenu() {
     <div className="navigation">
       <a className="myhub">My Hub</a>
       <div className="navigation-content">
-        <Link className="menuLinks" to="/profile">
+        <Link className="menuLinks" to={`/profile/${user._id}`}>
           <a>Profile</a>
         </Link>
         <Link className="menuLinks" to="/submitproject">
