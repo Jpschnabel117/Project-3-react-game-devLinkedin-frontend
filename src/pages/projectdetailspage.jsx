@@ -13,7 +13,7 @@ function ProjectDetailsPage() {
   const { user, isLoggedIn, logOutUser } = useContext(AuthContext);
   const [project, setProject] = useState(null);
   const [showEdit, setShowEdit] = useState(false);
- // const [showTask, setShowTask] = useState(false);
+  // const [showTask, setShowTask] = useState(false);
 
   const getProjectDetails = () => {
     axios
@@ -71,7 +71,6 @@ function ProjectDetailsPage() {
             <div>
               <span>Languages:</span>
               <div>
-                {" "}
                 {project.tech.languages.map((element) => {
                   return <div className="skill-tag">{element}</div>;
                 })}

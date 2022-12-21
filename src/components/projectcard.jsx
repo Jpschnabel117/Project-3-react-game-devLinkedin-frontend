@@ -15,12 +15,21 @@ const ProjectCard = (props) => {
           {/* <h1>{props.singleProject.owner.displayName}</h1> */}
           <div className="game-card-bottom">
             <Link to={`/projects/${props.singleProject._id}`}>
-              <h4 style={{marginTop:"0", marginBottom:"5px"}}>{props.singleProject.title}</h4>
+              <h4 style={{ marginTop: "0", marginBottom: "5px" }}>
+                {props.singleProject.title}
+              </h4>
             </Link>
-            <p style={{ height:"100px" }}>{props.singleProject.description.short}</p>
-            <Link>
-              <button></button>
-            </Link>
+            <p style={{ height: "90px" }}>
+              {props.singleProject.description.short}
+            </p>
+            <div style={{display:"flex", flexWrap: "wrap", justifyContent: "space-evenly"}}>
+              {props.singleProject.tech.engines.map((element) => {
+                return <div className="skill-tag"> {element} </div>;
+              })}
+              {props.singleProject.tech.languages.map((element) => {
+                return <div className="skill-tag"> {element} </div>;
+              })}
+            </div>
           </div>
         </div>
       </>
