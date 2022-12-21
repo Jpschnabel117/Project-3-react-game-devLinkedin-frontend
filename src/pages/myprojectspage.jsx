@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 import ProjectCard from "../components/projectcard";
 
-const Homepage = () => {
+const MyProjectsPage = () => {
   const [projectsArr, setProjectsArr] = useState([]);
   const { user, isLoggedIn, logOutUser } = useContext(AuthContext);
 
@@ -42,19 +42,26 @@ const Homepage = () => {
 
   return (
     <>
-      <h1>This is the home page</h1>
+      <h1>My Projects</h1>
       <main className="projectListPage">
         {/* add search bar here */}
 
         {
           /* {user && */
           projectsArr.map((singleProject) => {
-            return <ProjectCard singleProject={singleProject} />;
+            if (singleProject.owner._id === user._id) {
+              return <ProjectCard singleProject={singleProject} />;
+            } else {
+              return "";
+            }
           })
         }
       </main>
+      <Link to={"/submitproject"}>
+        <button>Submit new Project</button>
+      </Link>
     </>
   );
 };
 
-export default Homepage;
+export default MyProjectsPage;

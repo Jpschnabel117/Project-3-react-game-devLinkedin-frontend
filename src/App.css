@@ -68,6 +68,9 @@ nav button {
   margin: 16px;
   background: radial-gradient(circle, #2a475e 0%, #1b2838 80%);
 }
+.game-card:hover{
+  box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+}
 
 .game-card img {
   width: 100%;
@@ -108,7 +111,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100vw;
+  width: 300px;
   padding: 20px;
   border-radius: 5px;
 }
@@ -148,6 +151,10 @@ main {
   background-color: #0069d9;
 }
 
+.submitform {
+  width: 100vw;
+}
+
 .pSubmitFormLeft {
   width: 300px;
 }
@@ -181,3 +188,71 @@ main {
   flex-wrap: wrap;
   justify-content: center;
 }
+
+.navigation {
+  position: relative;
+  display: inline-block;
+}
+
+.navigation-content {
+  text-align: left;
+  display: none;
+  position: absolute;
+  background-color: #1b2838;
+  margin-top: 0px;
+  min-width: 167px;
+  max-width: 168px;
+  
+
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+   
+}
+
+.navigation-content:hover {
+  
+}
+
+.navigation a {
+  text-decoration: none;
+  color: white;
+  padding: 5px;
+  margin: 0;
+  text-decoration: none;
+  display: block;
+  border: 1px solid transparent;
+}
+.menuLinks{
+  transition: border-color 0.25s;
+  border: 1px solid transparent;
+}
+
+.menuLinks:hover{
+border-color: #646cff;
+}
+
+.navigation a:hover {
+  text-decoration: none;
+}
+
+.myhub{
+  border-bottom: 1px solid transparent;
+
+  height: 26px;
+}
+
+
+.navigation:hover .navigation-content {
+  display: block;
+}
+
+.commentinput{
+  height: 100px;
+  text-align: left;
+  width: 300px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+

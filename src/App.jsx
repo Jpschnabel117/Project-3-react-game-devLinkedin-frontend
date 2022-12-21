@@ -11,6 +11,7 @@ import IsAnon from "./components/isanon";
 import Profilepage from "./pages/profilepage";
 import SubmitProjectPage from "./pages/submitprojectpage";
 import ProjectDetailsPage from "./pages/projectdetailspage";
+import MyProjects from "./pages/myprojectspage";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -39,7 +40,7 @@ function App() {
           />
           <Route path="/projects/:projectId" element={<ProjectDetailsPage />} />
           <Route
-            path="/profile"
+            path="/profile/:userId"
             element={<IsPrivate>{<Profilepage />}</IsPrivate>}
           />
           <Route
@@ -47,6 +48,14 @@ function App() {
             element={
               <IsPrivate>
                 <SubmitProjectPage />
+              </IsPrivate>
+            }
+          />
+          <Route
+            path="/myprojects"
+            element={
+              <IsPrivate>
+                <MyProjects />
               </IsPrivate>
             }
           />

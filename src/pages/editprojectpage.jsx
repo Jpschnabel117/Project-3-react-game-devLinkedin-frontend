@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import React from "react";
 import Select from "react-select";
 import { AuthContext } from "../context/auth.context";
@@ -26,26 +26,27 @@ const languageChoices = [
   { label: "Swift", value: "swift" },
 ];
 
-function SubmitProjectPage() {
+function EditProjectPage(props) {
+  const { projectId } = useParams();
   const { user, isLoggedIn, logOutUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const [state, setState] = useState({
-    title: undefined,
+    title: props.title,
     description: {
-      short: undefined,
-      long: undefined,
+      short: props.descriptionShort,
+      long: props.descriptionLong,
     },
     tech: {
-      engines: [],
-      languages: [],
+      engines: props.techEngines,
+      languages: props.techLanguages,
     },
     links: {
-      github: "",
-      steam: "",
-      patreon: "",
-      discord: "",
+      github: props.linksGithub,
+      steam: props.linksSteam,
+      patreon: props.linksPatreon,
+      discord: props.linksDiscord,
     },
-    hiring: false,
+    hiring: props.hiring,
   });
 
   const updateState = (e) => {
@@ -95,14 +96,26 @@ function SubmitProjectPage() {
       },
     });
   };
-
+  const deleteIt = (e) => {
+    e.preventDefault()
+    axios
+      .delete(`http://localhost:3001/api/projects/${projectId}`, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      })
+      .then((axiosResponse) => {
+        console.log(axiosResponse.data);
+        navigate("/myprojects");
+      })
+      .catch((err) => console.log(err));
+  };
   const onFormSubmit = (e) => {
     e.preventDefault();
     console.log(state);
     axios
-      .post(
-        "http://localhost:3001/api/projects",
-
+      .put(
+        `http://localhost:3001/api/projects/${projectId}`,
         {
           title: state.title,
           description: {
@@ -129,7 +142,7 @@ function SubmitProjectPage() {
       )
       .then((axiosResponse) => {
         console.log(axiosResponse.data);
-        navigate("/");
+        navigate("/myprojects");
       })
       .catch((err) => console.log(err));
   };
@@ -137,7 +150,7 @@ function SubmitProjectPage() {
   return (
     <div className="login-screen">
       <form className="login-form submitform" onSubmit={onFormSubmit}>
-        <h1>Project Submission Form</h1>
+        <h1>Edit Form</h1>
         <div className="projectform">
           <div className="pSubmitFormLeft">
             <label>Title</label>
@@ -203,10 +216,21 @@ function SubmitProjectPage() {
             </div>
           </div>
         </div>
-        <button>Submit Project</button>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            width: "500px",
+          }}
+        >
+          <button style={{ backgroundColor: "red" }} onClick={deleteIt}>
+            Delete Project
+          </button>
+          <button>Submit Edited Project</button>
+        </div>
       </form>
     </div>
   );
 }
 
-export default SubmitProjectPage;
+export default EditProjectPage;
