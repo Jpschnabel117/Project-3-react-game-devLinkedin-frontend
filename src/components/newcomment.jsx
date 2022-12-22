@@ -14,7 +14,7 @@ function NewComment(props) {
     e.preventDefault();
     axios
       .post(
-        `http://localhost:3001/api/projects/${projectId}/comment`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/projects/${projectId}/comment`,
         {
           comment: comment,
           project: projectId,

@@ -97,9 +97,9 @@ function EditProjectPage(props) {
     });
   };
   const deleteIt = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     axios
-      .delete(`http://localhost:3001/api/projects/${projectId}`, {
+      .delete(`${import.meta.env.VITE_BACKEND_URL}/api/projects/${projectId}`, {
         headers: {
           authorization: `Bearer ${localStorage.getItem("authToken")}`,
         },
@@ -115,7 +115,7 @@ function EditProjectPage(props) {
     console.log(state);
     axios
       .put(
-        `http://localhost:3001/api/projects/${projectId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/projects/${projectId}`,
         {
           title: state.title,
           description: {

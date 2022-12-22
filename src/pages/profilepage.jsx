@@ -15,7 +15,7 @@ const Profilepage = () => {
 
   const getUserDetails = () => {
     axios
-      .get(`http://localhost:3001/api/user/${userId}`, {})
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/user/${userId}`, {})
       .then((axiosResponse) => {
         console.log("Details response:", axiosResponse.data);
         setViewingUser(axiosResponse.data);

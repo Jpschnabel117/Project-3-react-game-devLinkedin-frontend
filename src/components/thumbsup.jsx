@@ -9,8 +9,6 @@ function ThumbsUpButton(props) {
 
   let userVoted;
 
-
-
   const [filled, setFilled] = useState(userVoted);
 
   const [projectUpvotes, setProjectUpVotes] = useState(
@@ -22,7 +20,9 @@ function ThumbsUpButton(props) {
     if (filled) {
       axios
         .put(
-          `http://localhost:3001/api/projects/${props.singleProject._id}/upvote`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/projects/${
+            props.singleProject._id
+          }/upvote`,
           {
             upvotes: projectUpvotes + 1,
           },
@@ -35,7 +35,9 @@ function ThumbsUpButton(props) {
         .then(() => {
           setProjectUpVotes(projectUpvotes + 1);
           axios.put(
-            `http://localhost:3001/api/user/addupvoted/${props.singleProject._id}`,
+            `${import.meta.env.VITE_BACKEND_URL}/api/user/addupvoted/${
+              props.singleProject._id
+            }`,
             {
               headers: {
                 authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -46,7 +48,9 @@ function ThumbsUpButton(props) {
     } else {
       axios
         .put(
-          `http://localhost:3001/api/projects/${props.singleProject._id}/upvote`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/projects/${
+            props.singleProject._id
+          }/upvote`,
           {
             upvotes: projectUpvotes - 1,
           },
@@ -59,7 +63,9 @@ function ThumbsUpButton(props) {
         .then(() => {
           setProjectUpVotes(projectUpvotes - 1);
           axios.put(
-            `http://localhost:3001/api/user/deleteupvoted/${props.singleProject._id}`,
+            `${import.meta.env.VITE_BACKEND_URL}/api/user/deleteupvoted/${
+              props.singleProject._id
+            }`,
             {
               headers: {
                 authorization: `Bearer ${localStorage.getItem("authToken")}`,

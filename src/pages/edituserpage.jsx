@@ -100,7 +100,7 @@ function EditUserPage(props) {
   const deleteIt = () => {
     e.preventDefault();
     axios
-      .delete(`http://localhost:3001/api/user/${userId}`, {
+      .delete(`${import.meta.env.VITE_BACKEND_URL}/api/user/${userId}`, {
         headers: {
           authorization: `Bearer ${localStorage.getItem("authToken")}`,
         },
@@ -116,7 +116,7 @@ function EditUserPage(props) {
     console.log(state);
     axios
       .put(
-        `http://localhost:3001/api/user`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/user`,
         {
           email: state.email,
           displayName: state.displayName,

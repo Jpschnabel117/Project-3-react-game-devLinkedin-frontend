@@ -17,7 +17,7 @@ const Homepage = () => {
   function getProjectsList() {
     console.log("runs");
     axios
-      .get("http://localhost:3001/api/projects")
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/projects`)
       .then((axiosResponse) => {
         console.log("resolves");
         console.log(axiosResponse.data);
@@ -46,7 +46,7 @@ const Homepage = () => {
         ) {
           pass = true;
         } else {
-          pass = false; 
+          pass = false;
         }
       });
       return pass;

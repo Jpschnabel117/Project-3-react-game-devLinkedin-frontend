@@ -101,7 +101,7 @@ function SubmitProjectPage() {
     console.log(state);
     axios
       .post(
-        "http://localhost:3001/api/projects",
+        `${import.meta.env.VITE_BACKEND_URL}/api/projects`,
 
         {
           title: state.title,

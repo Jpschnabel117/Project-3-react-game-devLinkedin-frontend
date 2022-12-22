@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 
 function LoginPage() {
-   const { storeToken, authenticateUser } = useContext(AuthContext);
+  const { storeToken, authenticateUser } = useContext(AuthContext);
 
-   const navigate = useNavigate();
-   const [state, setState] = useState({
+  const navigate = useNavigate();
+  const [state, setState] = useState({
     email: "",
     password: "",
   });
@@ -22,14 +22,14 @@ function LoginPage() {
     e.preventDefault();
     console.log(state);
     axios
-      .post("http://localhost:3001/auth/login", {
+      .post(`${import.meta.env.VITE_BACKEND_URL}/auth/login`, {
         email: state.email,
         password: state.password,
       }) // or just pass state, as the second argument, not the full object
       .then((axiosResponse) => {
         console.log(axiosResponse.data);
         storeToken(axiosResponse.data.authToken);
-        authenticateUser()
+        authenticateUser();
         navigate("/");
       })
       .catch((err) => console.log(err));

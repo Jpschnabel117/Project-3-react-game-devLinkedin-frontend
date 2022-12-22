@@ -17,7 +17,7 @@ function ProjectDetailsPage() {
 
   const getProjectDetails = () => {
     axios
-      .get(`http://localhost:3001/api/projects/${projectId}`, {})
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/projects/${projectId}`, {})
 
       .then((axiosResponse) => {
         console.log("Details response:", axiosResponse.data);
@@ -32,7 +32,7 @@ function ProjectDetailsPage() {
 
   // const deleteIt = () => {
   //   axios
-  //     .delete(`http://localhost:3001/api/projects/${project._id}`, {
+  //     .delete(`${import.meta.env.VITE_BACKEND_URL}/api/projects/${project._id}`, {
   //       headers: {
   //         authorization: `Bearer ${localStorage.getItem("authToken")}`,
   //       },

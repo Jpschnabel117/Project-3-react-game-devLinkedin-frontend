@@ -12,7 +12,7 @@ const MyProjectsPage = () => {
   const getProjectsList = () => {
     console.log("runs");
     axios
-      .get("http://localhost:3001/api/projects")
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/projects`)
       .then((axiosResponse) => {
         console.log("resolves");
         console.log(axiosResponse.data);
@@ -24,7 +24,7 @@ const MyProjectsPage = () => {
 
   // const deleteIt = (projectid) => {
   //   axios
-  //     .delete(`http://localhost:3001/api/projects/${projectid}`, {
+  //     .delete(`${import.meta.env.VITE_BACKEND_URL}/api/projects/${projectid}`, {
   //       headers: {
   //         authorization: `Bearer ${localStorage.getItem("authToken")}`,
   //       },
@@ -46,15 +46,13 @@ const MyProjectsPage = () => {
       <main className="projectListPage">
         {/* add search bar here */}
 
-        {
-          projectsArr.map((singleProject) => {
-            if (singleProject.owner._id === user._id) {
-              return <ProjectCard singleProject={singleProject} />;
-            } else {
-              return "";
-            }
-          })
-        }
+        {projectsArr.map((singleProject) => {
+          if (singleProject.owner._id === user._id) {
+            return <ProjectCard singleProject={singleProject} />;
+          } else {
+            return "";
+          }
+        })}
       </main>
       <Link to={"/submitproject"}>
         <button>Submit new Project</button>
