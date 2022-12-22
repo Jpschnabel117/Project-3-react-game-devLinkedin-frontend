@@ -4,12 +4,17 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 import ProjectCard from "../components/projectcard";
+import SearchProjects from "../components/searchprojects";
+import SearchByTag from "../components/searchbytag";
 
 const Homepage = () => {
   const [projectsArr, setProjectsArr] = useState([]);
+  const [searchedProjects, setSearchedProjects] = useState(projectsArr);
+  const [showTech, setShowTech] = useState(false);
+
   const { user, isLoggedIn, logOutUser } = useContext(AuthContext);
 
-  const getProjectsList = () => {
+  function getProjectsList() {
     console.log("runs");
     axios
       .get("http://localhost:3001/api/projects")
@@ -20,38 +25,58 @@ const Homepage = () => {
       })
       .catch((err) => console.log(err));
     console.log("hello from use effect");
+  }
+  const searchList = (term) => {
+    const searchedList = projectsArr.filter((element) => {
+      let searchedtitle = element.title
+        .toLowerCase()
+        .includes(term.toLowerCase());
+      return searchedtitle;
+    });
+    setSearchedProjects(searchedList);
   };
 
-  // const deleteIt = (projectid) => {
-  //   axios
-  //     .delete(`http://localhost:3001/api/projects/${projectid}`, {
-  //       headers: {
-  //         authorization: `Bearer ${localStorage.getItem("authToken")}`,
-  //       },
-  //     })
-  //     .then((axiosResponse) => {
-  //       console.log(axiosResponse.data);
-  //       getProjectsList();
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
+  const tagSearch = (tags) => {
+    const taggedList = projectsArr.filter((element) => {
+      let pass = false;
+      tags.forEach((searchtag) => {
+        if (
+          element.tech.languages.includes(searchtag) ||
+          element.tech.engines.includes(searchtag)
+        ) {
+          pass = true;
+        } else {
+          pass = false; 
+        }
+      });
+      return pass;
+    });
+    setSearchedProjects(taggedList);
+  };
 
   useEffect(() => {
     getProjectsList();
-  }, []);
+  }, [searchedProjects]);
 
   return (
     <>
-      <h1>This is the home page</h1>
+      {showTech ? (
+        <>
+          <button onClick={() => setShowTech(false)}>
+            Swap to Title Search
+          </button>
+          <SearchByTag search={tagSearch} />
+        </>
+      ) : (
+        <>
+          <button onClick={() => setShowTech(true)}>Swap to Tag Search</button>
+          <SearchProjects search={searchList} />
+        </>
+      )}
       <main className="projectListPage">
-        {/* add search bar here */}
-
-        {
-          /* {user && */
-          projectsArr.map((singleProject) => {
-            return <ProjectCard singleProject={singleProject} />;
-          })
-        }
+        {searchedProjects.map((singleProject) => {
+          return <ProjectCard singleProject={singleProject} />;
+        })}
       </main>
     </>
   );

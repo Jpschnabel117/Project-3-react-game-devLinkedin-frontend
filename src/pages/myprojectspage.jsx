@@ -47,7 +47,6 @@ const MyProjectsPage = () => {
         {/* add search bar here */}
 
         {
-          /* {user && */
           projectsArr.map((singleProject) => {
             if (singleProject.owner._id === user._id) {
               return <ProjectCard singleProject={singleProject} />;

@@ -110,7 +110,6 @@ nav button {
   padding: 0%;
 }
 
-
 main {
   display: flex;
   flex-direction: column;
@@ -136,6 +135,14 @@ main {
 .login-form label {
   margin-bottom: 10px;
   font-size: 16px;
+}
+
+.searchInput {
+  width: 300px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
 }
 
 .login-form input {
@@ -196,6 +203,7 @@ main {
 }
 
 .multiSelect {
+  width: 300px;
   color: #1b2838;
 }
 

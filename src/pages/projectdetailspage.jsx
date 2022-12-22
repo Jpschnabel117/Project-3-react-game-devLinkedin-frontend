@@ -61,7 +61,7 @@ function ProjectDetailsPage() {
           <div className="userSkills">
             <div>
               <span>Engines:</span>
-              <div>
+              <div style={{ display: "flex", justifyContent: "center" }}>
                 {project.tech.engines.map((element) => {
                   return <div className="skill-tag">{element}</div>;
                 })}
@@ -70,7 +70,7 @@ function ProjectDetailsPage() {
             </div>
             <div>
               <span>Languages:</span>
-              <div>
+              <div style={{ display: "flex", justifyContent: "center" }}>
                 {project.tech.languages.map((element) => {
                   return <div className="skill-tag">{element}</div>;
                 })}

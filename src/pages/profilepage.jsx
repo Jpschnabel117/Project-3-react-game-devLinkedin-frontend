@@ -39,7 +39,7 @@ const Profilepage = () => {
           <div className="userSkills">
             <div>
               <span>Engines:</span>
-              <div>
+              <div style={{ display: "flex", justifyContent: "center" }}>
                 {viewingUser.tech.engines.map((element) => {
                   return <div className="skill-tag">{element}</div>;
                 })}
@@ -48,8 +48,7 @@ const Profilepage = () => {
             </div>
             <div>
               <span>Languages:</span>
-              <div>
-                {" "}
+              <div style={{ display: "flex", justifyContent: "center" }}>
                 {viewingUser.tech.languages.map((element) => {
                   return <div className="skill-tag">{element}</div>;
                 })}
